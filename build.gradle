@@ -6,8 +6,14 @@ compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
 ext {
-    junitVersion = '5.8.1'
+    commonsVersion = '2.14.0'
     cucumberVersion = '7.14.0'
+    junitVersion = '5.9.2'
+    lombokVersion = '1.18.30'
+    opencsvVersion = '5.8'
+    seleniumVersion = '4.13.0'
+    slf4jVersion = '2.0.5'
+    typesafeVersion = '1.4.2'
 }
 
 group 'com.macmil'
@@ -20,6 +26,12 @@ repositories {
 configurations {
     cucumberRuntime {
         extendsFrom testImplementation
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    testCompileOnly {
+        extendsFrom testAnnotationProcessor
     }
 }
 
@@ -44,6 +56,16 @@ task uiTest {
 }
 
 dependencies {
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "commons-io:commons-io:${commonsVersion}"
+    implementation "com.opencsv:opencsv:${opencsvVersion}"
+    implementation "com.typesafe:config:${typesafeVersion}"
+    implementation "org.seleniumhq.selenium:selenium-java:${seleniumVersion}"
+    implementation "org.slf4j:slf4j-api:${slf4jVersion}"
+    implementation "org.slf4j:slf4j-log4j12:${slf4jVersion}"
     testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
     testImplementation "io.cucumber:cucumber-junit:${cucumberVersion}"
     testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
